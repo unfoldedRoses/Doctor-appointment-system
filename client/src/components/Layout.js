@@ -8,7 +8,8 @@ function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
+  console.log(collapsed);
 
   const handleCollapse = () => {
     setCollapsed(!collapsed);
@@ -46,10 +47,11 @@ function Layout({ children }) {
     <div className="main">
       <div className="d-flex layout">
         <div className="sidebar">
-          <div className="logo"></div>
           <div className="sidebar-header">
-            <h3>Doctor Appointment</h3>
+            <h1 className="logo">SH</h1>
+            <h1 className="role"></h1>
           </div>
+
           <div className="menu">
             {MenuToBeRendered.map((menu) => {
               const isActive = location.pathname === menu.path;
@@ -60,18 +62,39 @@ function Layout({ children }) {
                   }`}
                 >
                   <i className={menu.icon}></i>
-                  <Link to={menu.path}>{menu.name}</Link>
+                  {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
                 </div>
               );
             })}
-            ;
+            <div
+              className={`d-flex menu-item `}
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+            >
+              <i className="ri-logout-circle-line"></i>
+              {!collapsed && <Link to="/login">Logout</Link>}
+            </div>
           </div>
         </div>
+
         <div className="content">
           <div className="header">
-            <i className="ri-close-line remix-icons"></i>
+            {collapsed ? (
+              <i
+                className="ri-menu-2-fill header-action-icon"
+                onClick={() => setCollapsed(false)}
+              ></i>
+            ) : (
+              <i
+                className="ri-close-fill header-action-icon"
+                onClick={() => setCollapsed(true)}
+              ></i>
+            )}
           </div>
-          <div className="body">Body</div>
+
+          <div className="body">{children}</div>
         </div>
       </div>
     </div>
