@@ -7,9 +7,9 @@ import { Badge } from "antd";
 function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user);
   const [collapsed, setCollapsed] = useState(false);
-  console.log(collapsed);
+  console.log(user);
 
   const handleCollapse = () => {
     setCollapsed(!collapsed);
@@ -92,6 +92,10 @@ function Layout({ children }) {
                 onClick={() => setCollapsed(true)}
               ></i>
             )}
+            <div className="d-flex mr-5">
+              <i className="ri-notification-line header-action-icon"></i>
+              <div className="anchor">{user?.name}</div>
+            </div>
           </div>
 
           <div className="body">{children}</div>
