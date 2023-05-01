@@ -97,8 +97,16 @@ function Layout({ children }) {
                 navigate("/login");
               }}
             >
-              <i className="ri-logout-circle-line"></i>
-              {!collapsed && <Link to="/login">Logout</Link>}
+              <div
+                className={`d-flex menu-item `}
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/login");
+                }}
+              >
+                <i className="ri-logout-circle-line"></i>
+                {!collapsed && <Link to="/login">Logout</Link>}
+              </div>
             </div>
           </div>
         </div>
