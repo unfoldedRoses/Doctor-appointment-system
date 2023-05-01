@@ -32,6 +32,7 @@ function ApplyDoctor() {
           },
         }
       );
+      console.log(response, ">>>>><");
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
@@ -41,6 +42,7 @@ function ApplyDoctor() {
       }
     } catch (error) {
       dispatch(hideLoading());
+      console.log(error, "Axios Error: " + error.message);
       toast.error("Something went wrong");
     }
   };

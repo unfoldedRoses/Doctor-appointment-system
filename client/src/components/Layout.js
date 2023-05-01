@@ -9,7 +9,6 @@ function Layout({ children }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [collapsed, setCollapsed] = useState(false);
-  console.log(user);
 
   const handleCollapse = () => {
     setCollapsed(!collapsed);

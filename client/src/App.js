@@ -13,7 +13,7 @@ import Notifications from "./pages/Notifications";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
-  console.log(loading);
+
   return (
     <BrowserRouter>
       {loading == true && (
@@ -31,6 +31,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/apply-doctor"
+          element={
+            <ProtectedRoute>
+              <ApplyDoctor />
             </ProtectedRoute>
           }
         />
