@@ -29,6 +29,7 @@ function DoctorForm({ onFinish, initivalValues }) {
             <Input placeholder="First Name" />
           </Form.Item>
         </Col>
+
         <Col span={8} xs={24} sm={24} lg={8}>
           <Form.Item
             required

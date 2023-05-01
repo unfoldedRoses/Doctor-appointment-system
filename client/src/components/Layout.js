@@ -8,6 +8,7 @@ function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  console.log(user, ">>>>>");
   const [collapsed, setCollapsed] = useState(false);
 
   const handleCollapse = () => {
@@ -40,7 +41,31 @@ function Layout({ children }) {
       icon: "ri-logout-circle-line",
     },
   ];
-  const MenuToBeRendered = userMenu;
+
+  const adminMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Users",
+      path: "/admin/userslist",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Doctors",
+      path: "/admin/doctorslist",
+      icon: "ri-user-star-line",
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: "ri-user-line",
+    },
+  ];
+  console.log(user.user, "xxxx");
+  const MenuToBeRendered = user.user?.isAdmin ? adminMenu : userMenu;
 
   return (
     <div className="main">
@@ -92,7 +117,9 @@ function Layout({ children }) {
               ></i>
             )}
             <div className="d-flex mr-5">
-              <i className="ri-notification-line header-action-icon"></i>
+              <Badge count="2" onClick={() => navigate("/notifications")}>
+                <i className="ri-notification-line header-action-icon"></i>
+              </Badge>
               <div className="anchor">{user?.name}</div>
             </div>
           </div>
