@@ -8,7 +8,7 @@ function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log(user, ">>>>>");
+
   const [collapsed, setCollapsed] = useState(false);
 
   const handleCollapse = () => {
@@ -35,11 +35,6 @@ function Layout({ children }) {
       path: "/profile",
       icon: "ri-profile-line",
     },
-    {
-      name: "Logout",
-      path: "/logout",
-      icon: "ri-logout-circle-line",
-    },
   ];
 
   const adminMenu = [
@@ -64,7 +59,7 @@ function Layout({ children }) {
       icon: "ri-user-line",
     },
   ];
-  console.log(user.user, "xxxx");
+
   const MenuToBeRendered = user.user?.isAdmin ? adminMenu : userMenu;
 
   return (
@@ -90,6 +85,7 @@ function Layout({ children }) {
                 </div>
               );
             })}
+
             <div
               className={`d-flex menu-item `}
               onClick={() => {
@@ -97,16 +93,8 @@ function Layout({ children }) {
                 navigate("/login");
               }}
             >
-              <div
-                className={`d-flex menu-item `}
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/login");
-                }}
-              >
-                <i className="ri-logout-circle-line"></i>
-                {!collapsed && <Link to="/login">Logout</Link>}
-              </div>
+              <i className="ri-logout-circle-line"></i>
+              {!collapsed && <Link to="/login">Logout</Link>}
             </div>
           </div>
         </div>
@@ -125,7 +113,10 @@ function Layout({ children }) {
               ></i>
             )}
             <div className="d-flex mr-5">
-              <Badge count="2" onClick={() => navigate("/notifications")}>
+              <Badge
+                count={user?.user?.unseenNotifications?.length}
+                onClick={() => navigate("/notifications")}
+              >
                 <i className="ri-notification-line header-action-icon"></i>
               </Badge>
               <div className="anchor">{user?.name}</div>

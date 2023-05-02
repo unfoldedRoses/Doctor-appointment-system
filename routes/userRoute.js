@@ -102,7 +102,7 @@ router.post("/apply-doctor-account", authMiddleware, async (req, res) => {
     let result = await User.findByIdAndUpdate(adminUser._id, {
       unseenNotifications,
     });
-    console.log(result, ">>>");
+
     res.status(200).send({
       success: true,
       message: "Doctor account applied successfully",
@@ -116,22 +116,21 @@ router.post("/apply-doctor-account", authMiddleware, async (req, res) => {
     });
   }
 });
+
 router.post(
   "/mark-all-notifications-as-seen",
   authMiddleware,
   async (req, res) => {
     try {
-      const user = await User.findOne({ _id: req.body.userId });
+      const user = await User.findById({ _id: req.body.userId });
       const unseenNotifications = user.unseenNotifications;
-      const seenNotifications = user.seenNotifications;
-      seenNotifications.push(...unseenNotifications);
+      user.seenNotifications = unseenNotifications;
       user.unseenNotifications = [];
-      user.seenNotifications = seenNotifications;
       const updatedUser = await user.save();
       updatedUser.password = undefined;
       res.status(200).send({
         success: true,
-        message: "All notifications marked as seen",
+        message: "All notifications cleared",
         data: updatedUser,
       });
     } catch (error) {
