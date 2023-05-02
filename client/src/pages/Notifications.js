@@ -10,7 +10,6 @@ import { setUser } from "../redux/userSlice";
 
 function Notifications() {
   const { user } = useSelector((state) => state.user);
-  console.log(user, ">>>>test>>>>");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -7,8 +7,8 @@ import { Table } from "antd";
 import moment from "moment";
 
 function Userslist() {
-  const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
   const getUsersData = async () => {
     try {
       dispatch(showLoading());
@@ -20,6 +20,7 @@ function Userslist() {
       dispatch(hideLoading());
       if (resposne.data.success) {
         setUsers(resposne.data.data);
+        console.log(resposne.data.data);
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -42,7 +43,7 @@ function Userslist() {
     {
       title: "Created At",
       dataIndex: "createdAt",
-      render: (record , text) => moment(record.createdAt).format("DD-MM-YYYY"),
+      render: (record, text) => moment(record.createdAt).format("DD-MM-YYYY"),
     },
     {
       title: "Actions",
@@ -54,12 +55,11 @@ function Userslist() {
       ),
     },
   ];
-
   return (
     <Layout>
       <h1 className="page-header">Users List</h1>
       <hr />
-      <Table columns={columns} dataSource={users}/>
+      <Table columns={columns} dataSource={users} />
     </Layout>
   );
 }
